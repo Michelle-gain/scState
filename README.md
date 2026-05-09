@@ -1,12 +1,11 @@
-# scState
-<h1 align="center">Deep-learning-enabled multi-omics analyses for prediction of future metastasis in cancer</h1>
+<h1 align="center">scState: Decoding stem cell state transitions through pathway-informed heterogeneous graph representations</h1>
 
 ## Description
 
-We developed EmitGCL, a graph contrastive learning model that integrates metastatic knowledge to detect subtle differences in cell groups at primary and metastatic sites. 
+We developed scState, a pathway-informed graph transformer designed to resolve continuous stem cell state transitions from scRNA-seq data. 
 
 <p align="center">
-  <img src="./images/workflow.png" alt="EmitGCL Flowchart" width="900">
+  <img src="./images/workflow.png" alt="scState Flowchart" width="900">
 </p>
 
 ## Installation
@@ -17,30 +16,25 @@ We developed EmitGCL, a graph contrastive learning model that integrates metasta
 * Hardware Architecture: x86_64
 * Operating System: GNU/Linux or Windows or MacOS
 
-### Approximate Runtime (example: 10,000 cells)
-* On CPU: approximately 8–10 hours
-* On GPU: approximately 2–4 hours
+### Dependencies, scState has the following dependencies:
 
-### Dependencies, EmitGCL has the following dependencies:
-
-| **Package**         | **Version**           |
-|:-------------------:|:---------------------:|
-| **seaborn**         | 0.11.2                |
-| **numpy**           | 1.22.3                |
-| **scipy**           | 1.9.1                 |
-| **tqdm**            | 4.64.0                |
-| **torch_geometric** | 2.1.0.post1           |
-| **pandas**          | 1.4.2                 |
-| **bioservices**     | 1.11.2                |
-| **torch**           | 1.12.0+cu102          |
-| **h5py**            | 3.10.0                |
-| **scanpy**          | 1.9.1                 |
-| **anndata**         | 0.8.0                 |
-| **torchmetrics**    | 0.9.3                 |
-| **matplotlib**      | 3.5.1                 |
-| **scikit-learn**    | 1.1.2                 |
-| **leidenalg**       | 0.8.10                |
-
+* anndata==0.8.0
+* dill==0.3.4
+* matplotlib==3.5.1
+* numpy==1.22.3
+* pandas==1.4.2
+* scipy==1.9.1
+* seaborn==0.11.2
+* scikit-learn==1.1.2
+* torch==1.12.0
+* torch-geometric==2.1.0.post1
+* torchmetrics==0.9.3
+* xlwt==1.3.0
+* tqdm==4.64.0
+* scanpy==1.9.1
+* leidenalg==0.8.10
+* ipywidgets==8.0.6
+* palantir==1.0.0
 
 ### Installation Steps
 
@@ -49,18 +43,37 @@ The installation process involves some optional and necessary steps. Here's the 
 1. **Recommended Step:** Create a new environment, you should use python 3.8.
 
     ```bash
-    conda create --name emitgcl python=3.8
-    conda activate emitgcl
+    conda create --name scState python=3.8
+    conda activate scState
     ```
 
 2. **Necessary Step:** You need to install either the CPU or GPU version of PyTorch as per your preference, We recommend using the GPU version, which has a faster running speed compared to the CPU version:
 
     - **CPU Version**
-        - For Linux/Windows/MacOS system (torch-1.12.0+ torch_cluster-1.6.0+ torch_scatter-2.0.9+ torch_sparse-0.6.14):
+        - For Linux system (torch-1.12.0+ torch_cluster-1.6.0+ torch_scatter-2.0.9+ torch_sparse-0.6.14):
         
             ```bash
-            pip install torch==1.12.0+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
-            pip install torch_scatter==2.0.9 torch_sparse==0.6.14 torch_cluster==1.6.0 -f https://data.pyg.org/whl/torch-1.12.0%2Bcpu/
+            pip install https://download.pytorch.org/whl/cpu/torch-1.12.0%2Bcpu-cp38-cp38-linux_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_cluster-1.6.0%2Bpt112cpu-cp38-cp38-linux_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_scatter-2.0.9-cp38-cp38-linux_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_sparse-0.6.14-cp38-cp38-linux_x86_64.whl
+            ```
+
+        - For Windows system (torch-1.12.0+ torch_cluster-1.6.0+ torch_scatter-2.0.9+ torch_sparse-0.6.14):
+
+            ```bash
+            pip install https://download.pytorch.org/whl/cpu/torch-1.12.0%2Bcpu-cp38-cp38-win_amd64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_scatter-2.0.9-cp38-cp38-win_amd64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_sparse-0.6.14-cp38-cp38-win_amd64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_cluster-1.6.0%2Bpt112cpu-cp38-cp38-win_amd64.whl
+            ```
+       - For MacOS system (torch-1.12.0+ torch_cluster-1.6.0+ torch_scatter-2.0.9+ torch_sparse-0.6.14):
+
+            ```bash
+            conda install pytorch==1.12.0
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_scatter-2.0.9-cp38-cp38-macosx_10_15_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_cluster-1.6.0-cp38-cp38-macosx_10_15_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcpu/torch_sparse-0.6.14-cp38-cp38-macosx_10_15_x86_64.whl
             ```
 
     - **GPU Version**
@@ -68,35 +81,26 @@ The installation process involves some optional and necessary steps. Here's the 
         - For linux system(You need to select the version that is compatible with your system's graphics card. For example: torch-1.12.0+ torch_cluster-1.6.0+ torch_scatter-2.1.0+ torch_sparse-0.6.16):
           
              ```bash
-            pip install torch==1.12.0+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
-            pip install torch_scatter==2.1.0 torch_sparse==0.6.16 torch_cluster==1.6.0 -f https://data.pyg.org/whl/torch-1.12.0%2Bcu102/
+            pip install https://download.pytorch.org/whl/cu102/torch-1.12.0%2Bcu102-cp38-cp38-linux_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcu102/torch_scatter-2.1.0%2Bpt112cu102-cp38-cp38-linux_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcu102/torch_sparse-0.6.16%2Bpt112cu102-cp38-cp38-linux_x86_64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcu102/torch_cluster-1.6.0%2Bpt112cu102-cp38-cp38-linux_x86_64.whl
              ```
         - For Windows system(You need to select the version that is compatible with your system's graphics card. For example: torch-1.12.0+ torch_cluster-1.6.0+ torch_scatter-2.1.0+ torch_sparse-0.6.16):
 
              ```bash
-            pip install torch==1.12.0+cu116 -f https://download.pytorch.org/whl/cu116/torch_stable.html
-            pip install torch_scatter==2.1.0 torch_sparse==0.6.15 torch_cluster==1.6.0 -f https://data.pyg.org/whl/torch-1.12.0%2Bcu116/
+            pip install https://download.pytorch.org/whl/cu116/torch-1.12.0%2Bcu116-cp38-cp38-win_amd64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcu116/torch_scatter-2.1.0%2Bpt112cu116-cp38-cp38-win_amd64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcu116/torch_sparse-0.6.15%2Bpt112cu116-cp38-cp38-win_amd64.whl
+            pip install https://data.pyg.org/whl/torch-1.12.0%2Bcu116/torch_cluster-1.6.0%2Bpt112cu116-cp38-cp38-win_amd64.whl
             ```
              
-        - For MacOS system: According to the official PyTorch documentation, CUDA is not available on MacOS, please use the CPU Version.
+        - For MacOS system(According to the official PyTorch documentation, CUDA is not available on MacOS, please use the default package):
 
-3. **Necessary Step:** You can directly install EmitGCL using the pip command:
+3. **Necessary Step:** You can directly install scState using the pip command:
 
     ```bash
-    pip install --upgrade EmitGCL
+    pip install --upgrade scState
     ```
 ## Code Contributor
-Maoteng Duan carried out benchmark experiments and wrapped the code.
-  
-## Citation
-If you use this work in your research, please cite the following publication:
- 
-```bibtex
-@article{wang2025deep,
-     author = {Wang, X. and Duan, M. and Su, P. L. and Li, J. and Krull, J. and Jin, J. and Ma, Q.},
-     title = {Deep-learning-enabled multi-omics analyses for prediction of future metastasis in cancer},
-     journal = {bioRxiv},
-     year = {2025},
-     doi = {10.1101/2025.05.16.654579}, 
-}
-```
+Xue Liu carried out benchmark experiments and wrapped the code.
