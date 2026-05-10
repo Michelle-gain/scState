@@ -20,14 +20,14 @@ We developed scState, a pathway-informed graph transformer designed to resolve c
 
 * anndata==0.8.0
 * dill==0.3.4
-* matplotlib==3.5.1
-* numpy==1.22.3
+* matplotlib==3.5.2
+* numpy==1.24.4
 * pandas==1.4.2
-* scipy==1.9.1
+* scipy==1.10.1
 * seaborn==0.11.2
 * scikit-learn==1.1.2
-* torch==1.12.0
-* torch-geometric==2.1.0.post1
+* torch==2.4.1+cu118
+* torch-geometric==2.6.1
 * torchmetrics==0.9.3
 * xlwt==1.3.0
 * tqdm==4.64.0
