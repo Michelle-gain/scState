@@ -66,18 +66,6 @@ The package name on PyPI is `scstate`:
 pip install --upgrade scstate
 ```
 
-To install a specific version:
-
-```bash
-pip install scstate==0.1.2
-```
-
-Although the package is installed as `scstate`, it should be imported in Python as `scState`:
-
-```python
-import scState
-```
-
 ---
 
 #### 4. Install trajectory-related dependencies
@@ -87,14 +75,6 @@ If trajectory-related analysis is needed, install the optional trajectory depend
 ```bash
 python -m pip install "scstate[trajectory]==0.1.2"
 ```
-
-This installs:
-
-```text
-PhenoGraph==1.5.7
-fcsparser==0.2.8
-```
-
 Then install `MulticoreTSNE` for Palantir:
 
 ```bash
