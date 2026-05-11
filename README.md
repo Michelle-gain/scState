@@ -58,17 +58,7 @@ pip install torchmetrics==0.9.3
 
 ---
 
-#### 3. Install scState
-
-The package name on PyPI is `scstate`:
-
-```bash
-pip install --upgrade scstate
-```
-
----
-
-#### 4. Install trajectory-related dependencies
+#### 3. Install trajectory-related dependencies
 
 If trajectory-related analysis is needed, install the optional trajectory dependencies:
 
@@ -91,6 +81,16 @@ If `pip install palantir==1.0.0` attempts to rebuild `MulticoreTSNE` and fails, 
 
 ```bash
 pip install palantir==1.0.0 --no-deps
+```
+
+---
+
+#### 4. Install scState
+
+The package name on PyPI is `scstate`:
+
+```bash
+pip install --upgrade scstate
 ```
 
 ---
