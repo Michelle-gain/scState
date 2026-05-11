@@ -73,7 +73,7 @@ pip install --upgrade scstate
 If trajectory-related analysis is needed, install the optional trajectory dependencies:
 
 ```bash
-python -m pip install "scstate[trajectory]=2.0.0"
+python -m pip install "scstate[trajectory]"
 ```
 Then install `MulticoreTSNE` for Palantir:
 
