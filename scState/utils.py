@@ -184,7 +184,7 @@ def Entropy(pred_label, true_label):
 
 def run_palantir_pipeline(
     adata,
-    ROI_genes=('Pax3', 'Sbno2', 'Bcl2'),
+    ROI_genes,
     n_hvg=2000
 ):
     """
@@ -195,7 +195,7 @@ def run_palantir_pipeline(
     adata : AnnData
         Input AnnData object (cells × genes).
         
-    ROI_genes : list or tuple, optional
+    ROI_genes : list or tuple
         Marker genes used to select the root (early) cell.
 
     n_hvg : int, optional
