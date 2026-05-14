@@ -99,7 +99,7 @@ pip install --upgrade scstate
 
 ```bash
 pip install ipykernel
-python -m ipykernel install --user --name scState --display-name "Python (scState)"
+python -m ipykernel install --user --name scState --display-name "scState"
 ```
 
 ---
