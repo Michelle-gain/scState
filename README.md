@@ -5,7 +5,7 @@
 We developed scState, a pathway-informed graph transformer designed to resolve continuous stem cell state transitions from scRNA-seq data. 
 
 <p align="center">
-  <img src="./images/workflow.jpg" alt="scState Flowchart" width="900">
+  <img src="./scState/images/workflow.jpg" alt="scState Flowchart" width="900">
 </p>
 
 ## Installation
